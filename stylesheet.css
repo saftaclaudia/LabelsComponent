@@ -1,0 +1,43 @@
+body{
+	width: 80%;
+	margin: 60px auto;
+}
+input{
+	font-family: Arial;
+	font-size: 14px;
+	line-height: 28px;
+	border-radius: 5px;
+	display: inline;
+	margin-right: 10px;
+}
+form{
+	float: left;
+	display: inline-block;
+}
+#button{
+	text-align: center;
+	padding: 2px 15px;
+	color:#ffffff;
+	font-weight: bold;
+}
+#button , .add{
+	background-color: #3399FF;
+	border: 1px solid #787878;
+}
+.add_input{
+	margin-top: 10px;
+}
+.add{
+	display: inline;
+	float: left;
+	border-radius: 5px;
+	margin-right: 5px;
+	padding: 2px 5px;
+}
+a{
+	padding: 0 10px 0 5px;
+	color: #ffffff;
+	font-weight: bold;
+	display: inline;
+	text-decoration: none;
+}
