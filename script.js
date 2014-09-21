@@ -8,7 +8,8 @@
                $('.add_input').append('<div class="add"><a href="#">&times</a>' +toAdd+ '</div>');
               };
           });
-          $('a').click(function(){
-            $('.add').remove();
-          });
+        $('.add_input').on('click' , 'a', function(){
+          $(this).click('.add').remove();
         });
+        });
+ 
