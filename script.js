@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var max_input=6;  
+  var max_input=6; 
 
   $('#button').click(function(e){
     e.preventDefault();
@@ -7,6 +7,8 @@ $(document).ready(function(){
     var addContent= $('<div class="add"><a href="#">&times</a>' +toAdd+ '</div>');
     if($('.add').length < max_input && toAdd.length > 0){
       $('.add_input').append(addContent);
+      $('#user_input').val('');
+      $('#user_input').focus();
     };
   });
         
