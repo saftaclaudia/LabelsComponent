@@ -7,13 +7,9 @@ input{
 	font-size: 14px;
 	line-height: 28px;
 	border-radius: 5px;
-	display: inline;
 	margin-right: 10px;
 }
-form{
-	float: left;
-	display: inline-block;
-}
+
 #button{
 	text-align: center;
 	padding: 2px 15px;
@@ -29,7 +25,6 @@ form{
 }
 .add{
 	display: inline;
-	float: left;
 	border-radius: 5px;
 	margin-right: 5px;
 	padding: 2px 5px;
@@ -38,6 +33,5 @@ a{
 	padding: 0 10px 0 5px;
 	color: #ffffff;
 	font-weight: bold;
-	display: inline;
 	text-decoration: none;
 }
