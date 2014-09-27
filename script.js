@@ -6,20 +6,20 @@ $(document).ready(function(){
     var toAdd= $('input[name=user_input]').val().trim();
     var addContent= $('<div class="add"><a href="#">&times</a><span>' +toAdd+'</span></div>');
     $('p').remove();
-
-    if(toAdd.length === 0){
-      $('<p>Please write a message in the input field.</p>')
+    var displayErrorMessage = function(text) {
+      $('<p>'+ text +'</p>')
         .hide()
         .insertAfter($('form'))
-        .show(200); 
+        .show(200);
+    };
+
+    if(toAdd.length === 0){
+      displayErrorMessage('Please write a message in the input field.');
       return;
     }
 
     if($('.add').length === max_input){
-      $('<p>You have reached maximum capacity. Remove a label to add a new message</p>')
-        .hide()
-        .insertAfter($('form'))
-        .show(200); 
+      displayErrorMessage('You have reached maximum capacity. Remove a label to add a new message'); 
       return;
     }
 
@@ -29,12 +29,9 @@ $(document).ready(function(){
         isDuplicate = true;
       }
     });
-    
+
     if( isDuplicate === true){
-      $('<p>You already written this message. Please write another message.</p>')
-        .hide()
-        .insertAfter($('form'))
-        .show(200); 
+      displayErrorMessage('You already written this message. Please write another message.');
       return;
     }
 
