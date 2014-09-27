@@ -9,7 +9,7 @@
   </head>
   <body>
     <form>
-      <input type="text" name="user_input" id="user_input">
+      <input type="text" name="user_input" id="user_input" placeholder="Label name">
       <input type="submit" id="button" value="Add Label">
       <input type="reset" id="resetButton" value="Remove All">
     </form>
