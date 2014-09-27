@@ -11,7 +11,6 @@
     <form>
       <input type="text" name="user_input" id="user_input">
       <input type="submit" id="button" value="send">
-      <div class="add_input"></div>
     </form>
   </body>
 </html>

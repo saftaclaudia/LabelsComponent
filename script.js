@@ -1,15 +1,18 @@
 $(document).ready(function(){
   var max_input=6; 
+  $('<div class="add_input"></div>').appendTo($('form'));
 
   $('#button').click(function(e){
     e.preventDefault();
     var toAdd= $('input[name=user_input]').val().trim();
     var addContent= $('<div class="add"><a href="#">&times</a><span>' +toAdd+'</span></div>');
     $('p').remove();
+    $('#user_input').focus();  
+    
     var displayErrorMessage = function(text) {
       $('<p>'+ text +'</p>')
         .hide()
-        .insertAfter($('form'))
+        .insertAfter($('#button'))
         .show(200);
     };
 
@@ -40,7 +43,7 @@ $(document).ready(function(){
       .appendTo($('.add_input'))
       .show(200);
 
-    $('#user_input').val('').focus();  
+    $('#user_input').val('');  
   });
        
   $('.add_input').on('click', 'a', function(e){
