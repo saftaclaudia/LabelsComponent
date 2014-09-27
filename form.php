@@ -10,8 +10,8 @@
   <body>
     <form>
       <input type="text" name="user_input" id="user_input">
-      <input type="submit" id="button" value="send">
-      <input type="reset" id="resetButton" value="reset">
+      <input type="submit" id="button" value="Add Label">
+      <input type="reset" id="resetButton" value="Remove All">
     </form>
   </body>
 </html>
