@@ -2,6 +2,10 @@ body{
 	width: 80%;
 	margin: 60px auto;
 }
+form{
+	float: left;
+	margin-right: 10px;
+}
 input{
 	font-family: Arial;
 	font-size: 14px;
@@ -34,4 +38,12 @@ a{
 	color: #ffffff;
 	font-weight: bold;
 	text-decoration: none;
+}
+p{
+	background-color: #33CCFF;
+	display: inline-block;
+	padding: 2px 6px;
+	border-radius: 5px;
+	color: #ffffff;
+	font-size: 14px;
 }

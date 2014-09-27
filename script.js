@@ -3,30 +3,56 @@ $(document).ready(function(){
 
   $('#button').click(function(e){
     e.preventDefault();
-    var toAdd= $('input[name=user_input]').val();
-    var addContent= $('<div class="add"><a href="#">&times</a>' +toAdd+ '</div>');
-    
-    if($('.add').length === max_input && $('.message_1').length<1 && toAdd.length > 0){
-      $('.add_input').prepend('<p class="message_1">text1</p>');
-    };
+    var toAdd= $('input[name=user_input]').val().trim();
+    var addContent= $('<div class="add"><a href="#">&times</a><span>' +toAdd+'</span></div>');
+    $('p').remove();
 
-    $('.add').each(function(element){
-      if( $('element').text() === toAdd && $('.message_1').length<1 && toAdd.length > 0){
-        $('.add_input').prepend('<p class="message_2">text2</p>');
-      };
+    if(toAdd.length === 0){
+      $('<p>Please write a message in the input field.</p>')
+        .hide()
+        .insertAfter($('form'))
+        .show(200); 
+      return;
+    }
+
+    if($('.add').length === max_input){
+      $('<p>You have reached maximum capacity. Remove a label to add a new message</p>')
+        .hide()
+        .insertAfter($('form'))
+        .show(200); 
+      return;
+    }
+
+    var isDuplicate = false;
+    $('.add').each(function(index, element){
+      if($(element).find('span').text() === toAdd){
+        isDuplicate = true;
+      }
     });
+    
+    if( isDuplicate === true){
+      $('<p>You already written this message. Please write another message.</p>')
+        .hide()
+        .insertAfter($('form'))
+        .show(200); 
+      return;
+    }
 
-   if($('.add').length < max_input && toAdd.length > 0 && toAdd !== ""){
-      $('.add_input').append(addContent);
-      $('#user_input').val('');
-      $('#user_input').focus();
-    };
+    addContent
+      .hide()
+      .appendTo($('.add_input'))
+      .show(200);
+
+    $('#user_input').val('').focus();  
   });
        
   $('.add_input').on('click', 'a', function(e){
     e.preventDefault();
-    $(this).closest('.add').remove();
+    $(this).closest('.add').hide(300, function(){
+      $(this).remove();
+    });
   });
 
 });
+
  
