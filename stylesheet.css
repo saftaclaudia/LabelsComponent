@@ -11,13 +11,13 @@ input{
 	margin-right: 10px;
 }
 
-#button{
+#button, #resetButton{
 	text-align: center;
 	padding: 2px 15px;
 	color:#ffffff;
 	font-weight: bold;
 }
-#button , .add{
+#button , .add, #resetButton{
 	background-color: #3399FF;
 	border: 1px solid #787878;
 }
