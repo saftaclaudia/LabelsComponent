@@ -2,10 +2,7 @@ body{
 	width: 80%;
 	margin: 60px auto;
 }
-form{
-	float: left;
-	margin-right: 10px;
-}
+
 input{
 	font-family: Arial;
 	font-size: 14px;
@@ -34,10 +31,14 @@ input{
 	padding: 2px 5px;
 }
 a{
+	display: none;
 	padding: 0 10px 0 5px;
 	color: #ffffff;
 	font-weight: bold;
 	text-decoration: none;
+}
+.add:hover a{
+	display: inline;	
 }
 p{
 	background-color: #33CCFF;
