@@ -54,9 +54,9 @@ $(document).ready(function(){
 
   $('#resetButton').click(function(e){
     e.preventDefault();
-    $('.add_input').hide(300, function(){
-      $('.add_input').remove();
-    });  
+    $('.add').hide(300, function(){
+      $(this).remove();
+    });
   });
 
 });
