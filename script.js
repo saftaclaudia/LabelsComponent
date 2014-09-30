@@ -2,6 +2,16 @@ $(document).ready(function(){
   var max_input=6; 
   $('<div class="add_input"></div>').appendTo($('form'));
 
+  var isDuplicate = function(string){
+    var isCondition = false;
+    $('.add').each(function(index, element){
+      if($(element).find('span').text() === string){
+        isCondition = true; 
+      }
+    });
+    return isCondition;
+  };
+
   var displayErrorMessage = function(text) {
     $('<p>'+ text +'</p>')
       .hide()
@@ -37,20 +47,12 @@ $(document).ready(function(){
     $('p').remove();
     $('#user_input').focus();  
 
-
     if(toAdd.length === 0){
       displayErrorMessage('Please write a message in the input field.');
       return;
     }
 
-    var isDuplicate = false;
-    $('.add').each(function(index, element){
-      if($(element).find('span').text() === toAdd){
-        isDuplicate = true;
-      }
-    });
-
-    if( isDuplicate === true){
+    if( isDuplicate(toAdd) === true){
       displayErrorMessage('You already written this message. Please write another message.');
       return;
     }
@@ -62,7 +64,6 @@ $(document).ready(function(){
     $('#user_input').val(''); 
 
     disableButton();
-
   });
        
   $('.add_input').on('click', 'a', function(e){
