@@ -22,11 +22,13 @@ $(document).ready(function(){
   var disableButton = function(){
     if($('.add').length === max_input){
       $('#button').attr('disabled', 'disabled');
+      $('#user_input').attr('disabled', 'disabled');
       displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message');
     }
 
     else{
       $('#button').removeAttr('disabled');
+      $('#user_input').removeAttr('disabled');
       $('p').remove();
     }
 
