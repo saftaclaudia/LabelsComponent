@@ -88,7 +88,11 @@ $(document).ready(function(){
     var text = $(this).find('span').text();
     $(this).find('span').replaceWith('<input type="text" name="edit_text" id="edit_text" value="' + text+'">' );
     $('#edit_text').focus();
+  });
 
+  $('.label_container').on('focusout', '.label', function(){
+    var newText = $('input[name = edit_text]').val().trim();
+    $('#edit_text').replaceWith('<span>' + newText+ '</span>');
   });
  
 });
