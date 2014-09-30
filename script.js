@@ -87,6 +87,7 @@ $(document).ready(function(){
   $('.label_container').on('dblclick', '.label', function(){
     var text = $(this).find('span').text();
     $(this).find('span').replaceWith('<input type="text" name="edit_text" id="edit_text" value="' + text+'">' );
+    $('#edit_text').focus();
 
   });
  
