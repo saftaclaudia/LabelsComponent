@@ -92,7 +92,13 @@ $(document).ready(function(){
 
   $('.label_container').on('focusout', '.label', function(){
     var newText = $('input[name = edit_text]').val().trim();
-    $('#edit_text').replaceWith('<span>' + newText+ '</span>');
+    if( isDuplicate(newText) === true){
+      displayErrorMessage('You already written this message. Please write another message.');
+      return;
+    }
+    else{
+      $('#edit_text').replaceWith('<span>' + newText+ '</span>');
+    } 
   });
  
 });
