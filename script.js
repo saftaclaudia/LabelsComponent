@@ -1,10 +1,10 @@
 $(document).ready(function(){
   var max_input=6; 
-  $('<div class="add_input"></div>').appendTo($('form'));
+  $('<div class="label_container"></div>').appendTo($('form'));
 
   var isDuplicate = function(string){
     var isCondition = false;
-    $('.add').each(function(index, element){
+    $('.label').each(function(index, element){
       if($(element).find('span').text() === string){
         isCondition = true; 
       }
@@ -20,7 +20,7 @@ $(document).ready(function(){
     };
 
   var disableButton = function(){
-    if($('.add').length === max_input){
+    if($('.label').length === max_input){
       $('#button').attr('disabled', 'disabled');
       $('#user_input').attr('disabled', 'disabled');
       displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message');
@@ -32,7 +32,7 @@ $(document).ready(function(){
       $('p').remove();
     }
 
-    if($('.add').length === 0){
+    if($('.label').length === 0){
       $('#resetButton').attr('disabled', 'disabled');
     }
 
@@ -45,7 +45,7 @@ $(document).ready(function(){
   $('#button').click(function(e){
     e.preventDefault();
     var toAdd= $('input[name=user_input]').val().trim();
-    var addContent= $('<div class="add"><a href="#">&times</a><span>' +toAdd+'</span></div>');
+    var addContent= $('<div class="label"><a href="#">&times</a><span>' +toAdd+'</span></div>');
     $('p').remove();
     $('#user_input').focus();  
 
@@ -61,16 +61,16 @@ $(document).ready(function(){
 
     addContent
       .hide()
-      .appendTo($('.add_input'))
+      .appendTo($('.label_container'))
       .show(200);
     $('#user_input').val(''); 
 
     disableButton();
   });
        
-  $('.add_input').on('click', 'a', function(e){
+  $('.label_container').on('click', 'a', function(e){
     e.preventDefault();
-    $(this).closest('.add').hide(300, function(){
+    $(this).closest('.label').hide(300, function(){
       $(this).remove();
       disableButton();
     });
@@ -78,7 +78,7 @@ $(document).ready(function(){
 
   $('#resetButton').click(function(e){
     e.preventDefault();
-    $('.add').hide(300, function(){
+    $('.label').hide(300, function(){
       $(this).remove();
       disableButton();
     });
