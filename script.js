@@ -17,6 +17,7 @@ $(document).ready(function(){
       .hide()
       .insertAfter($('#resetButton'))
       .show(200);
+  
     };
 
   var disableButton = function(){
@@ -92,6 +93,7 @@ $(document).ready(function(){
 
   $('.label_container').on('focusout', '.label', function(){
     var newText = $('input[name = edit_text]').val().trim();
+   
     if( isDuplicate(newText) === true){
       displayErrorMessage('You already written this message. Please write another message.');
       return;
