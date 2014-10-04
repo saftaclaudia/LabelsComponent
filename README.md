@@ -12,4 +12,8 @@ jQuery append and remove
 4. Animate messages;
 5. Empty the input field and focus on input after click;
 6. Empty the white spaces.
+7. Editable labels:
+ * replace the labels with input;
+ * save the changes if the new text input is different
+ * add message for duplicate label if the new text is duplicate
 
