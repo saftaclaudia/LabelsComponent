@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var max_input=6; 
   $('<div class="label_container"></div>').appendTo($('form'));
-
+  
   var isDuplicate = function(string){
     var isCondition = false;
     $('.label').each(function(index, element){
@@ -17,7 +17,6 @@ $(document).ready(function(){
       .hide()
       .insertAfter($('#resetButton'))
       .show(200);
-  
     };
 
   var disableButton = function(){
@@ -40,9 +39,10 @@ $(document).ready(function(){
     else{
       $('#resetButton').removeAttr('disabled');
     }
+
   };
   disableButton();
-
+  
   $('#button').click(function(e){
     e.preventDefault();
     var toAdd= $('input[name=user_input]').val().trim();
@@ -100,6 +100,7 @@ $(document).ready(function(){
     }
     else{
       $('#edit_text').replaceWith('<span>' + newText+ '</span>');
+      $('#user_input').focus();
     } 
   });
  
