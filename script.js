@@ -15,10 +15,19 @@ $(document).ready(function(){
   };
 
   var displayErrorMessage = function(text, id) {
+		if($('p').length === 0){
 		$('<p id='+ id +'>'+ text +'</p>')
 	  	.hide()
 	  	.insertAfter($('#resetButton'))
 	  	.show(200);
+	  }
+	  else{
+	  	$('p').remove();
+	  	$('<p id='+ id +'>'+ text +'</p>')
+	  	.hide()
+	  	.insertAfter($('#resetButton'))
+	  	.show(200);
+	  }
   };
 
   var removeErrorMessage =function(id){
@@ -110,7 +119,7 @@ $(document).ready(function(){
 
   $('.label_container').on('focusout', '.label', function(){
 	var newText = $('input[name = edit_text]').val().trim();
-	if(isDuplicate(newText) === true || newText === '' ){
+	if(isDuplicate(newText) === true || newText === ''){
 	  displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
 	  $('#edit_text').replaceWith('<span>' +firstText+ '</span>');
 	  return;
@@ -119,6 +128,7 @@ $(document).ready(function(){
 	  $('#edit_text').replaceWith('<span>' + newText+ '</span>');
 	  $('#user_input').focus();
 	} 
+
 
  });
  
