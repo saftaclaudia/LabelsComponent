@@ -14,18 +14,34 @@ $(document).ready(function(){
 	return isCondition;
   };
 
-  var displayErrorMessage = function(text) {
-	$('<p>'+ text +'</p>')
-	  .hide()
-	  .insertAfter($('#resetButton'))
-	  .show(200);
+  var displayErrorMessage = function(text, id) {
+		$('<p id='+ id +'>'+ text +'</p>')
+	  	.hide()
+	  	.insertAfter($('#resetButton'))
+	  	.show(200);
   };
+
+  var removeErrorMessage =function(id){
+	$('#' + id).remove();
+  }
+
+  $('#user_input').on('input', function(e){
+	if( isDuplicate($(this).val()) === true){
+	  displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
+	}
+	else{
+	  removeErrorMessage('duplicate_err');
+	}
+	if($(this).val().trim().length !== 0){
+	  removeErrorMessage('empty_err');
+	}
+  });
 
  var disableButton = function(){
 	if($('.label').length === max_input){
 	  $('#button').attr('disabled', 'disabled');
 	  $('#user_input').attr('disabled', 'disabled');
-	  displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message');
+	  displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message' , 'max_err');
 	}
 
 	else{
@@ -53,11 +69,11 @@ $(document).ready(function(){
 	$('#user_input').focus();  
 
 	if(toAdd.length === 0){
-	  displayErrorMessage('Please write a message in the input field.');
+	  displayErrorMessage('Please write a message in the input field.', 'empty_err');
 	  return;
 	}
 	if(isDuplicate(toAdd) === true){
-	  displayErrorMessage('You already written this message. Please write another message.');
+	  displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
 	  return;
 	}
 
@@ -95,7 +111,7 @@ $(document).ready(function(){
   $('.label_container').on('focusout', '.label', function(){
 	var newText = $('input[name = edit_text]').val().trim();
 	if(isDuplicate(newText) === true || newText === '' ){
-	  displayErrorMessage('You already written this message. Please write another message.');
+	  displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
 	  $('#edit_text').replaceWith('<span>' +firstText+ '</span>');
 	  return;
 	}
