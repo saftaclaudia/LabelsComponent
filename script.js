@@ -1,128 +1,128 @@
-$(document).ready(function(){
-  var max_input=6;
-  var firstText;
+$(document).ready(function() {
+	var max_input = 6;
+	var firstText;
 
-  $('<div class="label_container"></div>').appendTo($('form'));
-  
-  var isDuplicate = function(string){
-	var isCondition = false;
-	$('.label').each(function(index, element){
-	  if($(element).find('span').text() === string){
-		isCondition = true; 
-	  }
-	});
+	$('<div class="label_container"></div>').appendTo($('form'));
+
+	var isDuplicate = function(string) {
+		var isCondition = false;
+		$('.label').each(function(index, element) {
+			if ( $(element).find('span').text() === string ) {
+				isCondition = true; 
+	  		}
+		});
 	return isCondition;
-  };
+	};
 
-  var displayErrorMessage = function(text, id) {
-  	$('p').remove();
-	$('<p id='+ id +'>'+ text +'</p>')
-	  .hide()
-	  .insertAfter($('#resetButton'))
-	  .show(200);
-  };
+	var displayErrorMessage = function( text, id ) {
+		$('p').remove();
+		$('<p id='+ id +'>'+ text +'</p>')
+			.hide()
+	  		.insertAfter($('#resetButton'))
+	  		.show(200);
+  	};
 
-  var removeErrorMessage =function(id){
-	$('#' + id).remove();
-  }
+  	var removeErrorMessage =function( id ) {
+		$('#' + id).remove();
+  	};
 
-  $('#user_input').on('input', function(e){
-	removeErrorMessage('duplicate_err');
-	if( isDuplicate($(this).val()) === true){
-	  displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
-	}
-	
-	if($(this).val().trim().length !== 0){
-	  removeErrorMessage('empty_err');
-	}
-  });
+	$('#user_input').on('input', function( e ) {
+		removeErrorMessage('duplicate_err');
+		if ( isDuplicate($(this).val()) === true ) {
+	  		displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
+		}
 
- var disableButton = function(){
-	if($('.label').length === max_input){
-	  $('#button').attr('disabled', 'disabled');
-	  $('#user_input').attr('disabled', 'disabled');
-	  displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message' , 'max_err');
-	}
+		if ( $(this).val().trim().length !== 0 ) {
+	  		removeErrorMessage('empty_err');
+		}
+  	});
 
-	else{
-	  $('#button').removeAttr('disabled');
-	  $('#user_input').removeAttr('disabled');
-	  $('p').remove();
-	}
+ 	var disableButton = function() {
+		if ( $('.label').length === max_input ) {
+	 		$('#button').attr('disabled', 'disabled');
+	  		$('#user_input').attr('disabled', 'disabled');
+	  		displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message' , 'max_err');
+		}
 
-	if($('.label').length === 0){
-	  $('#resetButton').attr('disabled', 'disabled');
-	}
+		else {
+			$('#button').removeAttr('disabled');
+			$('#user_input').removeAttr('disabled');
+			$('p').remove();
+		}
 
-	else{
-	  $('#resetButton').removeAttr('disabled');
-	}
+		if ( $('.label').length === 0 ) {
+			$('#resetButton').attr('disabled', 'disabled');
+		}
 
-};
-  disableButton();
+		else {
+			$('#resetButton').removeAttr('disabled');
+		}
+
+	};
+  	disableButton();
   
-  $('#button').click(function(e){
-	e.preventDefault();
-	var toAdd= $('input[name=user_input]').val().trim();
-	var addContent= $('<div class="label"><a href="#">&times</a><span>' +toAdd+'</span></div>');
-	$('p').remove();
-	$('#user_input').focus();  
+  	$('#button').click(function( e ) {
+		e.preventDefault();
+		var toAdd = $('input[name=user_input]').val().trim();
+		var addContent = $('<div class="label"><a href="#">&times</a><span>' +toAdd+'</span></div>');
+		$('p').remove();
+		$('#user_input').focus();  
 
-	if(toAdd.length === 0){
-	  displayErrorMessage('Please write a message in the input field.', 'empty_err');
-	  return;
-	}
-	if(isDuplicate(toAdd) === true){
-	  displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
-	  return;
-	}
+		if ( toAdd.length === 0 ) {
+	 		displayErrorMessage('Please write a message in the input field.', 'empty_err');
+	  		return;
+		}
 
-	addContent
-	  .hide()
-	  .appendTo($('.label_container'))
-	  .show(200);
-	$('#user_input').val(''); 
+		if ( isDuplicate(toAdd) === true ) {
+	  		displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
+	  		return;
+		}
 
-	disableButton();
-  });
+		addContent
+			.hide()
+	  		.appendTo($('.label_container'))
+	  		.show(200);
 
-  $('.label_container').on('click', 'a', function(e){
-	e.preventDefault();
-	$(this).closest('.label').hide(300, function(){
-	  $(this).remove();
-	  disableButton();
-	});
-  });
+		$('#user_input').val(''); 
 
-  $('#resetButton').click(function(e){
-	e.preventDefault();
-	$('.label').hide(300, function(){
-	  $(this).remove();
-	  disableButton();
-	});
-  });
+		disableButton();
+  	});
 
-  $('.label_container').on('dblclick', '.label', function(){
-    firstText = $(this).find('span').text();
-	$(this).find('span').replaceWith('<input type="text" name="edit_text" id="edit_text" value="' +firstText+'">' );
-	$('#edit_text').focus();
-  });
+	$('.label_container').on('click', 'a', function( e ) {
+		e.preventDefault();
+		$(this).closest('.label').hide(300, function() {
+			$(this).remove();
+	  		disableButton();
+		});
+  	});
 
-  $('.label_container').on('focusout', '.label', function(){
-	var newText = $('input[name = edit_text]').val().trim();
-	if(isDuplicate(newText) === true || newText === ''){
-	  displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
-	  $('#edit_text').replaceWith('<span>' +firstText+ '</span>');
-	  return;
-	}
-	else{
-	  $('#edit_text').replaceWith('<span>' + newText+ '</span>');
-	  $('#user_input').focus();
-	} 
+  	$('#resetButton').click(function(e) {
+		e.preventDefault();
+		$('.label').hide(300, function() {
+	  		$(this).remove();
+	  		disableButton();
+		});
+  	});
 
+	$('.label_container').on('dblclick', '.label', function() {
+    	firstText = $(this).find('span').text();
+		$(this).find('span').replaceWith('<input type="text" name="edit_text" id="edit_text" value="' +firstText+'">');
+		$('#edit_text').focus();
+  	});
 
- });
- 
+  	$('.label_container').on('focusout', '.label', function() {
+		var newText = $('input[name = edit_text]').val().trim();
+		if ( isDuplicate(newText) === true || newText === '' ){
+	  		displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
+	  		$('#edit_text').replaceWith('<span>' +firstText+ '</span>');
+	  		return;
+		}
+
+		else {
+	  		$('#edit_text').replaceWith('<span>' + newText+ '</span>');
+	  		$('#user_input').focus();
+		}
+ 	}); 
 });
 
 
