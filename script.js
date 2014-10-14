@@ -27,12 +27,11 @@ $(document).ready(function(){
   }
 
   $('#user_input').on('input', function(e){
+	removeErrorMessage('duplicate_err');
 	if( isDuplicate($(this).val()) === true){
 	  displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
 	}
-	else{
-	  removeErrorMessage('duplicate_err');
-	}
+	
 	if($(this).val().trim().length !== 0){
 	  removeErrorMessage('empty_err');
 	}
