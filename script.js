@@ -15,19 +15,11 @@ $(document).ready(function(){
   };
 
   var displayErrorMessage = function(text, id) {
-		if($('p').length === 0){
-		$('<p id='+ id +'>'+ text +'</p>')
-	  	.hide()
-	  	.insertAfter($('#resetButton'))
-	  	.show(200);
-	  }
-	  else{
-	  	$('p').remove();
-	  	$('<p id='+ id +'>'+ text +'</p>')
-	  	.hide()
-	  	.insertAfter($('#resetButton'))
-	  	.show(200);
-	  }
+  	$('p').remove();
+	$('<p id='+ id +'>'+ text +'</p>')
+	  .hide()
+	  .insertAfter($('#resetButton'))
+	  .show(200);
   };
 
   var removeErrorMessage =function(id){
