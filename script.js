@@ -4,9 +4,9 @@ $(document).ready(function() {
 
 	$('<div class="label_container"></div>').appendTo($('form'));
 
-	var isDuplicate = function(string) {
+	var isDuplicate = function( string ) {
 		var isCondition = false;
-		$('.label').each(function(index, element) {
+		$('.label').each(function( index, element ) {
 			if ( $(element).find('span').text() === string ) {
 				isCondition = true; 
 	  		}
@@ -22,7 +22,7 @@ $(document).ready(function() {
 	  		.show(200);
   	};
 
-  	var removeErrorMessage =function( id ) {
+	var removeErrorMessage = function( id ) {
 		$('#' + id).remove();
   	};
 
@@ -35,29 +35,22 @@ $(document).ready(function() {
 		if ( $(this).val().trim().length !== 0 ) {
 	  		removeErrorMessage('empty_err');
 		}
-  	});
+	});
 
- 	var disableButton = function() {
+	var disableButton = function() {
+		$('#button').removeAttr('disabled');
+		$('#user_input').removeAttr('disabled');
+		$('p').remove();
 		if ( $('.label').length === max_input ) {
 	 		$('#button').attr('disabled', 'disabled');
 	  		$('#user_input').attr('disabled', 'disabled');
 	  		displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message' , 'max_err');
 		}
-
-		else {
-			$('#button').removeAttr('disabled');
-			$('#user_input').removeAttr('disabled');
-			$('p').remove();
-		}
-
+		
+		$('#resetButton').removeAttr('disabled');
 		if ( $('.label').length === 0 ) {
 			$('#resetButton').attr('disabled', 'disabled');
 		}
-
-		else {
-			$('#resetButton').removeAttr('disabled');
-		}
-
 	};
   	disableButton();
   
