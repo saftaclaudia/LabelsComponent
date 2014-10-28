@@ -1,4 +1,4 @@
-$(document).ready(function() {
+var labelsComponents = function(){
 	var max_input = 6;
 
 	$('<div class="label_container"></div>').appendTo($('form'));
@@ -8,17 +8,17 @@ $(document).ready(function() {
 		$('.label').each(function( index, element ) {
 			if ( $(element).find('span').text() === string ) {
 				isCondition = true; 
-	  		}
+			}
 		});
-	return isCondition;
+		return isCondition;
 	};
 
 	var displayErrorMessage = function( text, id ) {
 		$('p').remove();
 		$('<p id='+ id +'>'+ text +'</p>')
 			.hide()
-	  		.insertAfter($('#resetButton'))
-	  		.show(200);
+			.insertAfter($('#resetButton'))
+			.show(200);
   	};
 
 	var removeErrorMessage = function( id ) {
@@ -97,10 +97,9 @@ $(document).ready(function() {
 	});
 
 	var change_input = function(){
-		var firstText;
 		$('.label_container').on('dblclick', '.label', function() {
-    		firstText = $(this).find('span').text();
-			$(this).find('span').replaceWith('<input type="text" name="edit_text" id="edit_text" value="' +firstText+'">');
+    		var firstText = $(this).find('span').text();
+			$(this).find('span').replaceWith('<input type="text" data-first-text="' +firstText+ '"  name="edit_text" id="edit_text" value="' +firstText+'">');
 			$('#edit_text').focus();
 		});
 
@@ -108,7 +107,7 @@ $(document).ready(function() {
 			var newText = $('input[name = edit_text]').val().trim();
 			if ( isDuplicate(newText) === true || newText === '' ){
 				displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
-				$('#edit_text').replaceWith('<span>' +firstText+ '</span>');
+				$('#edit_text').replaceWith('<span>' + $('#edit_text').attr('data-first-text') + '</span>');
 				return;
 			}
 			else{
@@ -118,10 +117,10 @@ $(document).ready(function() {
  		});
 	}
 	change_input();
+};
+
+
+
+$(document).ready(function() {
+	labelsComponents();
 });
-
-
-
-
-
-

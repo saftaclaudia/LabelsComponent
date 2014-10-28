@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title><?php echo 'doi + doi' . ' = ' . (2+2); ?></title>
     <link rel='stylesheet' type='text/css' href='stylesheet.css'/>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   </head>
