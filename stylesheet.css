@@ -15,11 +15,11 @@ input{
 	margin-bottom: 30px;
 }
 
-#edit_text{
+#edit_text_labels, #edit_text_hobbies{
 	line-height: 14px;
 }
 
-#button, #resetButton{
+.button{
 	text-align: center;
 	padding: 2px 15px;
 	color:#ffffff;
@@ -27,25 +27,25 @@ input{
 	box-shadow: 0px 2px #006699;
    -webkit-transition: all 0.7s;
 }
-#button:hover, #resetButton:hover{
+.button:hover, .button:hover{
 	box-shadow: none;
 }
-#button , .label, #resetButton{
+.button , .label_labels, .label_hobbies{
 	background-color: #3399FF;
 	border: 1px solid #3399FF;
 }
-#button:disabled ,  #resetButton:disabled{
+.button:disabled{
 	background-color: #999999;
 	border-color: #999999;
 	box-shadow: 0px 2px #000000;
 
 }
 
-.label_container{
+.label_container_labels, .label_container_hobbies{
 	margin-top: 10px;
 	margin-bottom: 20px;
 }
-.label{
+.label_labels, .label_hobbies{
 	display: inline;
 	border-radius: 5px;
 	margin-right: 5px;
@@ -58,10 +58,10 @@ a{
 	font-weight: bold;
 	text-decoration: none;
 }
-.label:hover a{
+.label_hobbies:hover a, .label_labels:hover a{
 	display: inline;	
 }
-.label:hover{
+.label_labes:hover,.label_hobbies:hover{
 	box-shadow: 2px 2px #006699;
    -webkit-transition: all 0.7s;
 }

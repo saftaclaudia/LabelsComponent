@@ -1,13 +1,13 @@
-var labelsComponents = function(){
+var labelsComponents = function(input){
 	var max_input = 6;
-	$('#user_input').wrap('<div class="container"></div>');
-	$('<div class="label_container"></div>').insertAfter($('#user_input'));
-	$('<input type="reset" id="resetButton" value="Remove All">').insertAfter($('#user_input'));
-	$('<input type="submit" id="button" value="Add label">').insertAfter($('#user_input'));
+	$('#'+input).wrap('<div class="container"></div>');
+	$('<div class="label_container_'+input+'"></div>').insertAfter($('#'+input));
+	$('<input type="reset" id="resetButton_'+input+'" value="Remove All" class="button">').insertAfter($('#'+input));
+	$('<input type="submit" id="button_'+input+'" value="Add labels" class="button">').insertAfter($('#'+input));
 
 	var isDuplicate = function( string ) {
 		var isCondition = false;
-		$('.label').each(function( index, element ) {
+		$('.label_'+input).each(function( index, element ) {
 			if ( $(element).find('span').text() === string ) {
 				isCondition = true; 
 			}
@@ -19,104 +19,104 @@ var labelsComponents = function(){
 		$('p').remove();
 		$('<p id='+ id +'>'+ text +'</p>')
 			.hide()
-			.insertAfter($('#resetButton'))
+			.insertAfter($('#resetButton_'+input))
 			.show(200);
-  	};
+	};
 
 	var removeErrorMessage = function( id ) {
 		$('#' + id).remove();
-  	};
+	};
 
-	$('#user_input').on('input', function( e ) {
+	$('#'+input).on('input', function( e ) {
 		removeErrorMessage('duplicate_err');
 		if ( isDuplicate($(this).val()) === true ) {
-	  		displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
+			displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
 		}
 
 		if ( $(this).val().trim().length !== 0 ) {
-	  		removeErrorMessage('empty_err');
+			removeErrorMessage('empty_err');
 		}
 	});
 
 	var disableButton = function() {
-		$('#button').removeAttr('disabled');
-		$('#user_input').removeAttr('disabled');
+		$('#button_'+input).removeAttr('disabled');
+		$('#'+input).removeAttr('disabled');
 		$('p').remove();
-		if ( $('.label').length === max_input ) {
-	 		$('#button').attr('disabled', 'disabled');
-	  		$('#user_input').attr('disabled', 'disabled');
-	  		displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message' , 'max_err');
+		if ( $('.label_'+input).length === max_input ) {
+			$('#button_'+input).attr('disabled', 'disabled');
+			$('#'+input).attr('disabled', 'disabled');
+			displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message' , 'max_err');
 		}
 
-		$('#resetButton').removeAttr('disabled');
-		if ( $('.label').length === 0 ) {
-			$('#resetButton').attr('disabled', 'disabled');
+		$('#resetButton_'+input).removeAttr('disabled');
+		if ( $('.label_'+input).length === 0 ) {
+			$('#resetButton_'+input).attr('disabled', 'disabled');
 		}
 	};
-  	disableButton();
-  
-  	$('#button').click(function( e ) {
+	disableButton();
+
+	$('#button_'+input).click(function( e ) {
 		e.preventDefault();
-		var toAdd = $('input[name=user_input]').val().trim();
-		var addContent = $('<div class="label"><a href="#">&times</a><span>' +toAdd+'</span></div>');
+		var toAdd = $('#'+input).val().trim();
+		var addContent = $('<div class="label_'+input+'"><a href="#">&times</a><span>' +toAdd+'</span></div>');
 		$('p').remove();
-		$('#user_input').focus();  
+		$('#'+input).focus();  
 
 		if ( toAdd.length === 0 ) {
-	 		displayErrorMessage('Please write a message in the input field.', 'empty_err');
-	  		return;
+			displayErrorMessage('Please write a message in the input field.', 'empty_err');
+			return;
 		}
 
 		if ( isDuplicate(toAdd) === true ) {
-	  		displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
-	  		return;
+			displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
+			return;
 		}
 
 		addContent
 			.hide()
-			.appendTo($('.label_container'))
+			.appendTo($('.label_container_'+input))
 			.show(200);
 
-		$('#user_input').val(''); 
+		$('#'+input).val(''); 
 
 		disableButton();
 	});
 
-	$('.label_container').on('click', 'a', function( e ) {
+	$('.label_container_'+input).on('click', 'a', function( e ) {
 		e.preventDefault();
-		$(this).closest('.label').hide(300, function() {
+		$(this).closest('.label_'+input).hide(300, function() {
 			$(this).remove();
-	  		disableButton();
+			disableButton();
 		});
 	});
 
-	$('#resetButton').click(function(e) {
+	$('#resetButton_'+input).click(function(e) {
 		e.preventDefault();
-		$('.label').hide(300, function() {
-	  		$(this).remove();
-	  		disableButton();
+		$('.label_'+input).hide(300, function() {
+			$(this).remove();
+			disableButton();
 		});
 	});
 
 	var change_input = function(){
-		$('.label_container').on('dblclick', '.label', function() {
-    		var firstText = $(this).find('span').text();
-			$(this).find('span').replaceWith('<input type="text" data-first-text="' +firstText+ '"  name="edit_text" id="edit_text" value="' +firstText+'">');
-			$('#edit_text').focus();
+		$('.label_container_'+input).on('dblclick', '.label_'+input, function() {
+			var firstText = $(this).find('span').text();
+			$(this).find('span').replaceWith('<input type="text" data-first-text="' +firstText+ '"  name="edit_text" id="edit_text_'+input+'" value="' +firstText+'">');
+			$('#edit_text'+input).focus();
 		});
 
-		$('.label_container').on('focusout', '.label', function() {
-			var newText = $('input[name = edit_text]').val().trim();
+		$('.label_container_'+input).on('focusout', '.label_'+input, function() {
+			var newText = $('#edit_text_'+input).val().trim();
 			if ( isDuplicate(newText) === true || newText === '' ){
 				displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
-				$('#edit_text').replaceWith('<span>' + $('#edit_text').attr('data-first-text') + '</span>');
+				$('#edit_text_'+input).replaceWith('<span>' + $('#edit_text_'+input).attr('data-first-text') + '</span>');
 				return;
 			}
 			else{
-				$('#edit_text').replaceWith('<span>' + newText+ '</span>');
-				$('#user_input').focus();
+				$('#edit_text_'+input).replaceWith('<span>' + newText+ '</span>');
+				$('#'+input).focus();
 			}
- 		});
+		});
 	}
 	change_input();
 };
@@ -124,5 +124,6 @@ var labelsComponents = function(){
 
 
 $(document).ready(function() {
-	labelsComponents();
+	labelsComponents('labels');
+	labelsComponents('hobbies');
 });
