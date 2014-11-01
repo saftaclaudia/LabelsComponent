@@ -3,7 +3,7 @@ var labelsComponents = function(input){
 	$('#'+input).wrap('<div class="container"></div>');
 	$('<div class="label_container_'+input+'"></div>').insertAfter($('#'+input));
 	$('<input type="reset" id="resetButton_'+input+'" value="Remove All" class="button">').insertAfter($('#'+input));
-	$('<input type="submit" id="button_'+input+'" value="Add labels" class="button">').insertAfter($('#'+input));
+	$('<input type="submit" id="button_'+input+'" value="Add '+input+'" class="button">').insertAfter($('#'+input));
 
 	var isDuplicate = function( string ) {
 		var isCondition = false;
