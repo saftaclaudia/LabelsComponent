@@ -10,6 +10,10 @@ input{
 	border-radius: 5px;
 	margin-right: 10px;
 }
+.block{
+	display: block;
+	margin-bottom: 30px;
+}
 
 #edit_text{
 	line-height: 14px;
@@ -39,9 +43,10 @@ input{
 
 .label_container{
 	margin-top: 10px;
+	margin-bottom: 20px;
 }
 .label{
-	float: left;
+	display: inline;
 	border-radius: 5px;
 	margin-right: 5px;
 	padding: 2px 5px;

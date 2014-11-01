@@ -7,7 +7,10 @@
   </head>
   <body>
     <form>
+      <input type="text" name="user_name" id="user_name" placeholder="Name" class="block">
+      <input type="text" name="user_email" id="user_email" placeholder="Email address"class="block">
       <input type="text" name="user_input" id="user_input" placeholder="Label name">
+      <input type="text" name="user_hobbies" id="user_hobbies" placeholder="Hobbies">
     </form>
     <script type='text/javascript' src="script.js"> </script>
   </body>
