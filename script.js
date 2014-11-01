@@ -1,7 +1,9 @@
 var labelsComponents = function(){
 	var max_input = 6;
-
-	$('<div class="label_container"></div>').appendTo($('form'));
+	$('#user_input').wrap('<div class="container"></div>');
+	$('<div class="label_container"></div>').insertAfter($('#user_input'));
+	$('<input type="reset" id="resetButton" value="Remove All">').insertAfter($('#user_input'));
+	$('<input type="submit" id="button" value="Add label">').insertAfter($('#user_input'));
 
 	var isDuplicate = function( string ) {
 		var isCondition = false;

@@ -1,17 +1,13 @@
-
-
 <!DOCTYPE html>
 <html>
   <head>
-    <title><?php echo 'doi + doi' . ' = ' . (2+2); ?></title>
+    <title>form</title>
     <link rel='stylesheet' type='text/css' href='stylesheet.css'/>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   </head>
   <body>
     <form>
       <input type="text" name="user_input" id="user_input" placeholder="Label name">
-      <input type="submit" id="button" value="Add Label">
-      <input type="reset" id="resetButton" value="Remove All">
     </form>
     <script type='text/javascript' src="script.js"> </script>
   </body>
