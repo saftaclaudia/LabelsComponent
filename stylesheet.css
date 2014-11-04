@@ -15,7 +15,7 @@ input{
 	margin-bottom: 30px;
 }
 
-#edit_text_labels, #edit_text_hobbies{
+#edit_text{
 	line-height: 14px;
 }
 
@@ -27,10 +27,10 @@ input{
 	box-shadow: 0px 2px #006699;
    -webkit-transition: all 0.7s;
 }
-.button:hover, .button:hover{
+.button:hover{
 	box-shadow: none;
 }
-.button , .label_labels, .label_hobbies{
+.button, .label{
 	background-color: #3399FF;
 	border: 1px solid #3399FF;
 }
@@ -41,11 +41,11 @@ input{
 
 }
 
-.label_container_labels, .label_container_hobbies{
+.label_container{
 	margin-top: 10px;
 	margin-bottom: 20px;
 }
-.label_labels, .label_hobbies{
+.label{
 	display: inline;
 	border-radius: 5px;
 	margin-right: 5px;
@@ -58,10 +58,10 @@ a{
 	font-weight: bold;
 	text-decoration: none;
 }
-.label_hobbies:hover a, .label_labels:hover a{
+.label:hover a{
 	display: inline;	
 }
-.label_labes:hover,.label_hobbies:hover{
+.label:hover,{
 	box-shadow: 2px 2px #006699;
    -webkit-transition: all 0.7s;
 }

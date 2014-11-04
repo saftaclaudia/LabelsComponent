@@ -1,13 +1,23 @@
-var labelsComponents = function(input){
+var labelsComponents = function(idInput){
 	var max_input = 6;
-	$('#'+input).wrap('<div class="container"></div>');
-	$('<div class="label_container_'+input+'"></div>').insertAfter($('#'+input));
-	$('<input type="reset" id="resetButton_'+input+'" value="Remove All" class="button">').insertAfter($('#'+input));
-	$('<input type="submit" id="button_'+input+'" value="Add '+input+'" class="button">').insertAfter($('#'+input));
+	
+	var $input = $('#'+idInput);
+	$input.wrap('<div class="container"></div>');
+	var $container = $input.closest('.container');
+	
+	$container
+		.append('<input type="submit" value="Add '+idInput+'" class="button add_js">')
+		.append('<input type="reset" value="Remove '+idInput+'" class="button reset_js">')
+		.append('<div class="label_container"></div>');
+	
+	var $buttonAdd = $container.find('.add_js');
+	var $buttonReset = $container.find('.reset_js');
+
+
 
 	var isDuplicate = function( string ) {
 		var isCondition = false;
-		$('.label_'+input).each(function( index, element ) {
+		$container.find('.label').each(function( index, element ) {
 			if ( $(element).find('span').text() === string ) {
 				isCondition = true; 
 			}
@@ -19,7 +29,7 @@ var labelsComponents = function(input){
 		$('p').remove();
 		$('<p id='+ id +'>'+ text +'</p>')
 			.hide()
-			.insertAfter($('#resetButton_'+input))
+			.insertAfter($buttonReset)
 			.show(200);
 	};
 
@@ -27,7 +37,7 @@ var labelsComponents = function(input){
 		$('#' + id).remove();
 	};
 
-	$('#'+input).on('input', function( e ) {
+	$input.on('input', function( e ) {
 		removeErrorMessage('duplicate_err');
 		if ( isDuplicate($(this).val()) === true ) {
 			displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
@@ -38,83 +48,89 @@ var labelsComponents = function(input){
 		}
 	});
 
-	var disableButton = function() {
-		$('#button_'+input).removeAttr('disabled');
-		$('#'+input).removeAttr('disabled');
+	var toggleDisableElements = function() {
+		var nrLabels = $container.find('.label').length;
+
+		$buttonAdd.removeAttr('disabled');
+		$input.removeAttr('disabled');
 		$('p').remove();
-		if ( $('.label_'+input).length === max_input ) {
-			$('#button_'+input).attr('disabled', 'disabled');
-			$('#'+input).attr('disabled', 'disabled');
+		if ( nrLabels >= max_input ) {
+			$buttonAdd.attr('disabled', 'disabled');
+			$input.attr('disabled', 'disabled');
 			displayErrorMessage( 'You have reached maximum capacity. Remove a label to add a new message' , 'max_err');
 		}
-
-		$('#resetButton_'+input).removeAttr('disabled');
-		if ( $('.label_'+input).length === 0 ) {
-			$('#resetButton_'+input).attr('disabled', 'disabled');
+		$buttonReset.removeAttr('disabled');
+		if ( nrLabels === 0 ) {
+			$buttonReset.attr('disabled', 'disabled');
 		}
 	};
-	disableButton();
+	toggleDisableElements();
 
-	$('#button_'+input).click(function( e ) {
-		e.preventDefault();
-		var toAdd = $('#'+input).val().trim();
-		var addContent = $('<div class="label_'+input+'"><a href="#">&times</a><span>' +toAdd+'</span></div>');
+	var addNewLabel = function(value) {
+		var addContent = $('<div class="label"><a href="#">&times</a><span>' +value+'</span></div>');
+
 		$('p').remove();
-		$('#'+input).focus();  
+		$input.focus();
 
-		if ( toAdd.length === 0 ) {
+		if ( value.length === 0 ) {
 			displayErrorMessage('Please write a message in the input field.', 'empty_err');
 			return;
 		}
 
-		if ( isDuplicate(toAdd) === true ) {
+		if ( isDuplicate(value) === true ) {
 			displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
 			return;
 		}
 
 		addContent
 			.hide()
-			.appendTo($('.label_container_'+input))
+			.appendTo( $container.find('.label_container') )
 			.show(200);
 
-		$('#'+input).val(''); 
+		toggleDisableElements();
+	};
 
-		disableButton();
+	$buttonAdd.click(function( e ) {
+		e.preventDefault();
+		var toAdd = $input.val().trim();
+		$input.val(''); 
+	    addNewLabel( toAdd );
+		toggleDisableElements();
 	});
 
-	$('.label_container_'+input).on('click', 'a', function( e ) {
+	$container.find('.label_container').on('click', 'a', function( e ) {
 		e.preventDefault();
-		$(this).closest('.label_'+input).hide(300, function() {
+		$(this).closest('.label').hide(300, function() {
 			$(this).remove();
-			disableButton();
+			toggleDisableElements();
 		});
 	});
 
-	$('#resetButton_'+input).click(function(e) {
+	$buttonReset.click(function(e) {
 		e.preventDefault();
-		$('.label_'+input).hide(300, function() {
+		$('.label').hide(300, function() {
 			$(this).remove();
-			disableButton();
+			toggleDisableElements();
 		});
 	});
 
 	var change_input = function(){
-		$('.label_container_'+input).on('dblclick', '.label_'+input, function() {
+		$container.find('.label_container').on('dblclick', '.label', function() {
 			var firstText = $(this).find('span').text();
-			$(this).find('span').replaceWith('<input type="text" data-first-text="' +firstText+ '"  name="edit_text" id="edit_text_'+input+'" value="' +firstText+'">');
-			$('#edit_text'+input).focus();
+			$(this).find('span').replaceWith('<input type="text" data-first-text="' +firstText+ '"  name="edit_text" id="edit_text" value="' +firstText+'">');
+			$('#edit_text').focus();
 		});
 
-		$('.label_container_'+input).on('focusout', '.label_'+input, function() {
-			var newText = $('#edit_text_'+input).val().trim();
+		$container.find('.label_container').on('focusout', '.label', function() {
+			var newText = $('#edit_text').val().trim();
 			if ( isDuplicate(newText) === true || newText === '' ){
 				displayErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
-				$('#edit_text_'+input).replaceWith('<span>' + $('#edit_text_'+input).attr('data-first-text') + '</span>');
+				$('#edit_text').replaceWith('<span>' + $('#edit_text').attr('data-first-text') + '</span>');
 				return;
 			}
 			else{
-				$('#edit_text_'+input).replaceWith('<span>' + newText+ '</span>');
-				$('#'+input).focus();
+				$('#edit_text').replaceWith('<span>' + newText+ '</span>');
+				$input.focus();
 			}
 		});
 	}
