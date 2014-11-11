@@ -12,6 +12,7 @@
       <input type="text" name="user_input" id="labels" placeholder="Label name">
       <input type="text" name="user_hobbies" id="hobbies" placeholder="Hobbies">
     </form>
+    <script type="text/javascript" src="labelscomponents.js"></script>
     <script type='text/javascript' src="script.js"> </script>
   </body>
 </html>
