@@ -29,6 +29,9 @@ var labelsComponents = function(idInput) {
 		});
 		return isCondition;
 	};
+	var removeErrorMessage = function( id ){
+		$('#'+id).remove();
+	};
 
 	var toogleErrorMessage = function( text ) {
 		$('p').remove();
@@ -64,12 +67,12 @@ var labelsComponents = function(idInput) {
 		$input.focus();
 
 		if ( value.length === 0 ) {
-			toogleErrorMessage('Please write a message in the input field.');
+			toogleErrorMessage('Please write a message in the input field.', 'empty_err');
 			return;
 		}
 
 		if ( isDuplicate(value) === true ) {
-			toogleErrorMessage('You already written this message. Please write another message.');
+			toogleErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
 			return;
 		}
 
@@ -85,9 +88,8 @@ var labelsComponents = function(idInput) {
 		$input.on('input', function( e ) {
 			removeErrorMessage('duplicate_err');
 			if ( isDuplicate($(this).val()) === true ) {
-				toogleErrorMessage('You already written this message. Please write another message.');
+				toogleErrorMessage('You already written this message. Please write another message.', 'duplicate_err');
 			}
-
 			if ( $(this).val().trim().length !== 0 ) {
 				removeErrorMessage('empty_err');
 			}
