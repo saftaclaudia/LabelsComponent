@@ -33,9 +33,9 @@ var labelsComponents = function(idInput) {
 		$('#'+id).remove();
 	};
 
-	var toogleErrorMessage = function( text ) {
+	var toogleErrorMessage = function( text , id) {
 		$('p').remove();
-		$('<p>'+ text +'</p>')
+		$('<p id='+ id +'>'+ text +'</p>')
 			.hide()
 			.insertAfter($buttonReset)
 			.show(200);
